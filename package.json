@@ -1,0 +1,28 @@
+{
+  "name": "bookstore-manager-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvandroLuiz-dev/BookStore-Manager-CLI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EvandroLuiz-dev/BookStore-Manager-CLI/issues"
+  },
+  "homepage": "https://github.com/EvandroLuiz-dev/BookStore-Manager-CLI#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
