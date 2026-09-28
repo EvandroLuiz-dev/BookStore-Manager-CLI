@@ -18,6 +18,14 @@ export class AutorRepository {
         }
         return new Autor(result.rows[0].nome, result.rows[0].pais, result.rows[0].id);
     }
+
+    async findByName(nome: string): Promise<Autor | null> {
+        const result = await pool.query('SELECT * FROM autores WHERE nome = $1', [nome]);
+        if (result.rows.length === 0) {
+            return null;
+        }
+        return new Autor(result.rows[0].nome, result.rows[0].pais, result.rows[0].id);
+    }
     
     async update(autor: Autor): Promise<void> {
          if (autor.id === undefined) {
