@@ -184,7 +184,8 @@ export async function MenuLivro(
               "Digite o ID do livro que deseja remover (ou 0 para voltar ao menu): ",
             );
             if (Number(id) === 0) {
-              break;
+              console.log("ID inválido. Tente novamente.");
+              continue;
             }
             const livro = await livroController.buscarLivroPorId(Number(id));
             if (!livro) {

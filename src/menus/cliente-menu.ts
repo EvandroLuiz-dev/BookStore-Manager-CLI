@@ -30,10 +30,11 @@ export async function MenuCliente(
     switch (opcao) {
       case "1":
         try {
-          const nome = await perguntar("Digite o nome do cliente");
-          const email = await perguntar("Digite o email do cliente");
-          const contato = await perguntar("Digite o contato do cliente");
-          await clienteController.criarCliente(nome, email, contato);
+          const nome = await perguntar("Digite o nome do cliente: ");
+          const email = await perguntar("Digite o email do cliente: ");
+          const contato = await perguntar("Digite o contato do cliente(ou deixe e branco): ");
+          const contatoValue = contato.trim() === "" ? null : contato;
+          await clienteController.criarCliente(nome, email, contatoValue);
 
           console.log("Cliente cadastrado com sucesso!");
           await voltarAoMenu();
@@ -45,7 +46,7 @@ export async function MenuCliente(
       case "2":
         try {
           const clientes = await clienteController.listarClientes();
-          console.log("Lista de clientes:");
+          console.log("Lista de clientes: ");
           for (const cliente of clientes) {
             console.log(
               `ID: ${cliente.id}, Nome: ${cliente.nome}, Email ${cliente.email}, Contato: ${cliente.contato}`,
@@ -59,29 +60,35 @@ export async function MenuCliente(
         break;
 
       case "3":
-        try {
-            const id = await perguntar("Digite o ID do cliente (ou 0 para voltar ao menu): ");
-            if (id === "0") {
-                break;
-            }
+  try {
+    while (true) {
+      const id = await perguntar(
+        "Digite o ID do cliente (ou 0 para voltar ao menu): "
+      );
 
-            const cliente = await clienteController.buscarClientePorId(Number(id));
-
-            if (!cliente) {
-                console.log("Cliente não encontrado. Tente novamente");
-                continue;
-            }
-             console.log(
-              `ID: ${cliente.id}, Nome: ${cliente.nome}, Email ${cliente.email}, Contato: ${cliente.contato}`,
-            );
-
-            await voltarAoMenu();
-            break;
-        } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
-        }
-
+      if (id === "0") {
         break;
+      }
+
+      const cliente = await clienteController.buscarClientePorId(Number(id));
+
+      if (!cliente) {
+        console.log("Cliente não encontrado. Tente novamente.");
+        continue;
+      }
+
+      console.log(
+        `ID: ${cliente.id}, Nome: ${cliente.nome}, Email: ${cliente.email}, Contato: ${cliente.contato}`,
+      );
+
+      await voltarAoMenu();
+      break;
+    }
+  } catch (error) {
+    console.log(error instanceof Error ? error.message : error);
+  }
+
+  break;
 
       case "4":
         try {
@@ -95,22 +102,51 @@ export async function MenuCliente(
                     console.log("Cliente não encontrado. Tente Novamente.");
                     continue;
                 }
-                const nome = await perguntar("Digite o novo nome do cliente:");
-                const email = await perguntar("Digite o novo Email:");
-                const contato = await perguntar ("Digite o novo Contato (ou deixe em branco):");
+                const nome = await perguntar("Digite o novo nome do cliente: ");
+                const email = await perguntar("Digite o novo Email: ");
+                const contato = await perguntar ("Digite o novo Contato (ou deixe em branco): ");
+                if(!nome || !email){
+                  console.log("Nome e Email são obrigatórios.")
+                }
                 const contatoValue = contato.trim() === "" ? null : contato;
                 await clienteController.atualizarCliente(Number(id), nome, email, contatoValue);
                 console.log("Cliente atualizado com sucesso.");
                 await voltarAoMenu();
                     break;
-                
+              }
+            } catch (error) {
+                console.log(error instanceof Error ? error.message : error);
 
-            }
         }
         break;
-
+        5
       case "5":
+        
+        try {
+
+          while(true){
+          const id = await perguntar("Digite o ID do cliente que deseja remover (ou 0 para voltar ao menu): ");
+          if (Number(id) === 0) {
+    console.log("ID inválido. Tente novamente.");
+    continue;
+}
+
+            const cliente = await clienteController.buscarClientePorId(Number(id));
+            if (!cliente) {
+              console.log("Cliente não encontrado. Tente novamente.");
+              continue;
+            }
+          await clienteController.deletarCliente(Number(id));
+            console.log("Cliente removido com sucesso.");
+            await voltarAoMenu();
+            break;
+        }
+
+        } catch(error) {
+          console.log(error instanceof Error ? error.message : error);
+        }
         break;
+        
 
       case "0":
         console.log("Voltando...");

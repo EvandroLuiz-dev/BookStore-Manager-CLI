@@ -18,22 +18,22 @@ export class ClienteService {
         return await this.clienteRepository.findById(id);
     }
 
-    async criarCliente(nome: string, email: string, contato: string): Promise<void> {
-        if (!nome || !email || !contato) {
-            throw new Error("Todos os campos são obrigatórios.");
+    async criarCliente(nome: string, email: string, contato: string | null): Promise<void> {
+        if (!nome || !email ) {
+            throw new Error("Nome e Email são obrigatórios.");
         }
 
         const cliente = new Cliente(nome, email, contato);
         await this.clienteRepository.create(cliente);
     }
 
-    async atualizarCliente(id:number, nome: string, email: string, contato: string): Promise<void> {
+    async atualizarCliente(id:number, nome: string, email: string, contato: string | null): Promise<void> {
         if (id <= 0) {
             throw new Error("ID inválido.");
         }
 
-        if (!nome || !email || !contato) {
-            throw new Error("Todos os campos são obrigatórios.");
+        if (!nome || !email) {
+            throw new Error("Nome e Email são obrigatórios.");
         }
 
         const clienteExiste = await this.clienteRepository.findById(id);

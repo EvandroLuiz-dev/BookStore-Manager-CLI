@@ -8,7 +8,7 @@ export class ClienteController {
         this.clienteService = clienteService;
     }
 
-    async criarCliente (nome: string, email: string, contato: string): Promise<void>{
+    async criarCliente (nome: string, email: string, contato: string | null): Promise<void>{
         await this.clienteService.criarCliente(nome, email, contato);
     }
 
@@ -16,7 +16,7 @@ export class ClienteController {
         return await this.clienteService.buscarPorId(id);
     }
 
-    async atualizarCliente (id: number, nome: string, email:string, contato:string): Promise<void> {
+    async atualizarCliente (id: number, nome: string, email:string, contato:string | null): Promise<void> {
         await this.clienteService.atualizarCliente(id, nome, email, contato);
     }
 
