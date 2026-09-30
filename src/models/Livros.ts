@@ -38,4 +38,12 @@ export class Livro {
     get autorId(): number {
         return this._autorId
     }
+
+    set estoque(valor: number) {
+    if (valor < 0) {
+        throw new Error("O estoque não pode ser negativo.");
+    }
+
+    this._estoque = valor;
+    }
 }
