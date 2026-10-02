@@ -1,18 +1,6 @@
-import { LivroRepository } from "../repositories/livro-repository";
-import { AutorRepository } from "../repositories/AutorRepository";
-import { LivroService } from "../services/livro-service";
-import { AutorService } from "../services/autor-service";
-
 import { AutorController } from "../controllers/autor-controller";
 import { LivroController } from "../controllers/livro-controller";
-import { perguntar, voltarAoMenu, fecharPerguntar } from "../utils/perguntar";
-
-const livroRepository = new LivroRepository();
-const autorRepository = new AutorRepository();
-const livroService = new LivroService(livroRepository, autorRepository);
-const autorService = new AutorService(autorRepository);
-const livroController = new LivroController(livroService);
-const autorController = new AutorController(autorService);
+import { perguntar, voltarAoMenu } from "../utils/perguntar";
 
 export async function MenuLivro(
   livroController: LivroController,
@@ -35,32 +23,55 @@ export async function MenuLivro(
     const opcao = await perguntar("\n👉 Escolha uma opção: ");
 
     switch (opcao) {
+
       case "1":
         try {
           const titulo = await perguntar("Digite o título do livro: ");
+
           const editora = await perguntar(
             "Digite a editora do livro (ou deixe em branco): ",
           );
-          const editoraValue = editora.trim() === "" ? null : editora;
-          const preco = await perguntar("Digite o preço do livro: ");
-          const quantidade = await perguntar("Digite a quantidade do livro: ");
+
+          const editoraValue =
+            editora.trim() === "" ? null : editora;
+
+          const preco = await perguntar(
+            "Digite o preço do livro: "
+          );
+
+          const quantidade = await perguntar(
+            "Digite a quantidade do livro: "
+          );
+
           const autores = await autorController.listarAutores();
+
           console.log("\n📚 LISTA DE AUTORES\n");
+
           autores.forEach((autor, index) => {
             console.log(`${index + 1} ➜ ${autor.nome}`);
           });
+
           let indiceAutor: number;
+
           while (true) {
             const opcaoAutor = await perguntar(
               "\nDigite o número do autor do livro: ",
             );
+
             indiceAutor = Number(opcaoAutor) - 1;
-            if (indiceAutor >= 0 && indiceAutor < autores.length) {
+
+            if (
+              indiceAutor >= 0 &&
+              indiceAutor < autores.length
+            ) {
               break;
             }
+
             console.log("Opção inválida. Tente novamente.");
           }
+
           const autorSelecionado = autores[indiceAutor]!;
+
           await livroController.criarLivro(
             titulo,
             editoraValue,
@@ -68,15 +79,24 @@ export async function MenuLivro(
             parseInt(quantidade),
             autorSelecionado.id!,
           );
+
           console.log("\n✅ Livro cadastrado com sucesso!");
+
           await voltarAoMenu();
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
+
+
       case "2":
         try {
-          const livros = await livroController.buscarTodosLivros();
+          const livros =
+            await livroController.buscarTodosLivros();
+
           console.log("\n📚 LISTA DE LIVROS\n");
 
           for (const livro of livros) {
@@ -84,11 +104,17 @@ export async function MenuLivro(
               `ID: ${livro.id}, Título: ${livro.titulo}, Editora: ${livro.editora}, Preço: ${livro.preco}, Quantidade: ${livro.estoque}, Autor ID: ${livro.autorId}`,
             );
           }
+
           await voltarAoMenu();
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
+
+
       case "3":
         try {
           while (true) {
@@ -100,10 +126,15 @@ export async function MenuLivro(
               break;
             }
 
-            const livro = await livroController.buscarLivroPorId(Number(id));
+            const livro =
+              await livroController.buscarLivroPorId(
+                Number(id)
+              );
 
             if (!livro) {
-              console.log("Livro não encontrado. Tente novamente.");
+              console.log(
+                "Livro não encontrado. Tente novamente."
+              );
               continue;
             }
 
@@ -114,51 +145,89 @@ export async function MenuLivro(
             await voltarAoMenu();
             break;
           }
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
+
+
       case "4":
         try {
           while (true) {
             const id = await perguntar(
               "Digite o ID do livro que deseja atualizar (ou 0 para voltar ao menu): ",
             );
+
             if (Number(id) === 0) {
               break;
             }
-            const livro = await livroController.buscarLivroPorId(Number(id));
+
+            const livro =
+              await livroController.buscarLivroPorId(
+                Number(id)
+              );
+
             if (!livro) {
-              console.log("Livro não encontrado. Tente novamente.");
+              console.log(
+                "Livro não encontrado. Tente novamente."
+              );
               continue;
             }
-            const titulo = await perguntar("Digite o novo título do livro: ");
+
+            const titulo = await perguntar(
+              "Digite o novo título do livro: "
+            );
+
             const editora = await perguntar(
               "Digite a nova editora do livro (ou deixe em branco): ",
             );
-            const editoraValue = editora.trim() === "" ? null : editora;
-            const preco = await perguntar("Digite o novo preço do livro: ");
-            const quantidade = await perguntar(
-              "Digite a nova quantidade do livro: ",
+
+            const editoraValue =
+              editora.trim() === "" ? null : editora;
+
+            const preco = await perguntar(
+              "Digite o novo preço do livro: "
             );
-            const autores = await autorController.listarAutores();
+
+            const quantidade = await perguntar(
+              "Digite a nova quantidade do livro: "
+            );
+
+            const autores =
+              await autorController.listarAutores();
+
             console.log("\n📚 LISTA DE AUTORES\n");
+
             autores.forEach((autor, index) => {
               console.log(`${index + 1} ➜ ${autor.nome}`);
             });
 
             let indiceAutor: number;
+
             while (true) {
               const opcaoAutor = await perguntar(
                 "\nDigite o número do autor do livro: ",
               );
+
               indiceAutor = Number(opcaoAutor) - 1;
-              if (indiceAutor >= 0 && indiceAutor < autores.length) {
+
+              if (
+                indiceAutor >= 0 &&
+                indiceAutor < autores.length
+              ) {
                 break;
               }
-              console.log("Opção inválida. Tente novamente.");
+
+              console.log(
+                "Opção inválida. Tente novamente."
+              );
             }
+
             const autorSelecionado = autores[indiceAutor]!;
+
             await livroController.atualizarLivro(
               Number(id),
               titulo,
@@ -168,47 +237,74 @@ export async function MenuLivro(
               autorSelecionado.id!,
             );
 
-            console.log("\n✅ Livro atualizado com sucesso!");
+            console.log(
+              "\n✅ Livro atualizado com sucesso!"
+            );
+
             await voltarAoMenu();
 
             break;
           }
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
+
+
       case "5":
         try {
           while (true) {
             const id = await perguntar(
               "Digite o ID do livro que deseja remover (ou 0 para voltar ao menu): ",
             );
+
             if (Number(id) === 0) {
-              console.log("ID inválido. Tente novamente.");
-              continue;
+              break;
             }
-            const livro = await livroController.buscarLivroPorId(Number(id));
+
+            const livro =
+              await livroController.buscarLivroPorId(
+                Number(id)
+              );
+
             if (!livro) {
-              console.log("Livro não encontrado. Tente novamente.");
+              console.log(
+                "Livro não encontrado. Tente novamente."
+              );
               continue;
             }
+
             await livroController.deletarLivro(Number(id));
-            console.log("\n✅ Livro removido com sucesso!");
+
+            console.log(
+              "\n✅ Livro removido com sucesso!"
+            );
+
             await voltarAoMenu();
+
             break;
           }
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
+
+
       case "0":
         console.log("Voltando...");
-        fecharPerguntar();
         return;
+
+
       default:
         console.log("Opção inválida");
+        await voltarAoMenu();
+        break;
     }
   }
 }
-
-MenuLivro(livroController, autorController);

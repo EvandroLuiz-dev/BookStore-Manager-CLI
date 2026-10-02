@@ -1,7 +1,5 @@
 import { RelatorioController } from "../controllers/relatorios-controller";
-import { perguntar, voltarAoMenu, fecharPerguntar } from "../utils/perguntar";
-
-const relatorioController = new RelatorioController();
+import { perguntar, voltarAoMenu } from "../utils/perguntar";
 
 export async function MenuRelatorio(
   relatorioController: RelatorioController,
@@ -21,13 +19,18 @@ export async function MenuRelatorio(
     console.log("╚════════════════════════════════════════╝");
 
     const opcao = await perguntar("\n👉 Escolha uma opção: ");
+
     switch (opcao) {
+
       case "1":
         try {
-          const livros = await relatorioController.listarLivrosDisponiveis();
+          const livros =
+            await relatorioController.listarLivrosDisponiveis();
 
           if (livros.length === 0) {
-            console.log("\n📚 Não há livros disponíveis no momento.");
+            console.log(
+              "\n📚 Não há livros disponíveis no momento."
+            );
           } else {
             console.log("\n📚 LIVROS DISPONÍVEIS\n");
 
@@ -35,7 +38,7 @@ export async function MenuRelatorio(
               "ID".padEnd(4) +
                 "TÍTULO".padEnd(27) +
                 "AUTOR".padEnd(26) +
-                "ESTOQUE",
+                "ESTOQUE"
             );
 
             console.log("-".repeat(64));
@@ -45,22 +48,30 @@ export async function MenuRelatorio(
                 String(livro.id).padEnd(4) +
                   livro.titulo.padEnd(27) +
                   livro.autor.padEnd(26) +
-                  String(livro.estoque),
+                  String(livro.estoque)
               );
             });
           }
 
           await voltarAoMenu();
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
+
+
       case "2":
         try {
-          const livros = await relatorioController.listarLivrosEmprestados();
+          const livros =
+            await relatorioController.listarLivrosEmprestados();
 
           if (livros.length === 0) {
-            console.log("\n📖 Não há livros emprestados no momento.");
+            console.log(
+              "\n📖 Não há livros emprestados no momento."
+            );
           } else {
             console.log("\n📖 LIVROS EMPRESTADOS\n");
 
@@ -69,7 +80,7 @@ export async function MenuRelatorio(
                 "TÍTULO".padEnd(27) +
                 "AUTOR".padEnd(26) +
                 "CLIENTE".padEnd(25) +
-                "DATA",
+                "DATA"
             );
 
             console.log("-".repeat(90));
@@ -80,42 +91,52 @@ export async function MenuRelatorio(
                   livro.titulo.padEnd(27) +
                   livro.autor.padEnd(26) +
                   livro.cliente.padEnd(25) +
-                  livro.data_emprestimo.toLocaleDateString("pt-BR"),
+                  livro.data_emprestimo.toLocaleDateString("pt-BR")
               );
             });
           }
 
           await voltarAoMenu();
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
 
+
       case "3":
-    try {
-        const livros = await relatorioController.listarLivrosPorAutor();
+        try {
+          const livros =
+            await relatorioController.listarLivrosPorAutor();
 
-        console.log("\n✍️ LIVROS POR AUTOR\n");
+          console.log("\n✍️ LIVROS POR AUTOR\n");
 
-        console.log(
+          console.log(
             "AUTOR".padEnd(30) +
-            "TÍTULO"
-        );
+              "TÍTULO"
+          );
 
-        console.log("-".repeat(60));
+          console.log("-".repeat(60));
 
-        livros.forEach((livro) => {
+          livros.forEach((livro) => {
             console.log(
-                livro.autor.padEnd(30) +
+              livro.autor.padEnd(30) +
                 (livro.titulo ?? "Nenhum livro cadastrado")
             );
-        });
+          });
 
-        await voltarAoMenu();
-    } catch (error) {
-        console.log(error instanceof Error ? error.message : error);
-    }
-    break;
+          await voltarAoMenu();
+
+        } catch (error) {
+          console.log(
+            error instanceof Error ? error.message : error
+          );
+        }
+        break;
+
+
       case "4":
         try {
           const livros =
@@ -123,7 +144,11 @@ export async function MenuRelatorio(
 
           console.log("\n📊 EMPRÉSTIMOS POR LIVRO\n");
 
-          console.log("ID".padEnd(4) + "TÍTULO".padEnd(35) + "EMPRÉSTIMOS");
+          console.log(
+            "ID".padEnd(4) +
+              "TÍTULO".padEnd(35) +
+              "EMPRÉSTIMOS"
+          );
 
           console.log("-".repeat(55));
 
@@ -131,15 +156,19 @@ export async function MenuRelatorio(
             console.log(
               String(livro.id).padEnd(4) +
                 livro.titulo.padEnd(35) +
-                String(livro.total_emprestimos),
+                String(livro.total_emprestimos)
             );
           });
 
           await voltarAoMenu();
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
+
 
       case "5":
         try {
@@ -147,12 +176,18 @@ export async function MenuRelatorio(
             await relatorioController.listarClientesComEmprestimosAtivos();
 
           if (clientes.length === 0) {
-            console.log("\n👥 Não há clientes com empréstimos ativos.");
+            console.log(
+              "\n👥 Não há clientes com empréstimos ativos."
+            );
           } else {
-            console.log("\n👥 CLIENTES COM EMPRÉSTIMOS ATIVOS\n");
+            console.log(
+              "\n👥 CLIENTES COM EMPRÉSTIMOS ATIVOS\n"
+            );
 
             console.log(
-              "ID".padEnd(4) + "NOME".padEnd(35) + "EMPRÉSTIMOS ATIVOS",
+              "ID".padEnd(4) +
+                "NOME".padEnd(35) +
+                "EMPRÉSTIMOS ATIVOS"
             );
 
             console.log("-".repeat(60));
@@ -161,26 +196,30 @@ export async function MenuRelatorio(
               console.log(
                 String(cliente.id).padEnd(4) +
                   cliente.nome.padEnd(35) +
-                  String(cliente.emprestimos_ativos),
+                  String(cliente.emprestimos_ativos)
               );
             });
           }
 
           await voltarAoMenu();
+
         } catch (error) {
-          console.log(error instanceof Error ? error.message : error);
+          console.log(
+            error instanceof Error ? error.message : error
+          );
         }
         break;
 
+
       case "0":
         console.log("Voltando...");
-        fecharPerguntar();
         return;
+
 
       default:
         console.log("Opção inválida");
+        await voltarAoMenu();
+        break;
     }
   }
 }
-
-MenuRelatorio(relatorioController);

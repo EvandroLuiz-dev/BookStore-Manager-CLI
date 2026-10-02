@@ -66,7 +66,7 @@ async function testar() {
     try {
         console.log("\n📋 Testando busca de todos os empréstimos...");
 
-        const emprestimos = await service.buscarTodosEmprestimo();
+        const emprestimos = await service.buscarTodosEmprestimos();
 
         console.log("✅ Empréstimos encontrados:", emprestimos);
 

@@ -20,7 +20,7 @@ export class AutorRepository {
     }
 
     async findByName(nome: string): Promise<Autor | null> {
-        const result = await pool.query('SELECT * FROM autores WHERE nome = $1', [nome]);
+        const result = await pool.query('SELECT * FROM autores WHERE LOWER(nome) = LOWER($1)', [nome]);
         if (result.rows.length === 0) {
             return null;
         }
