@@ -1,6 +1,6 @@
 import { LivroRepository } from '../repositories/livro-repository';
 import { Livro } from '../models/Livros';
-import { AutorRepository } from '../repositories/AutorRepository';
+import { AutorRepository } from '../repositories/autor-repository';
 
 export class LivroService {
     private livroRepository: LivroRepository;

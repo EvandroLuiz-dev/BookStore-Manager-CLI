@@ -1,6 +1,6 @@
 import { EmprestimoController } from "./emprestimo-controller";
-import { EmprestimoService } from "../services/emprestimo-service";
-import { Emprestimo } from "../models/Emprestimo";
+import { EmprestimoService } from "../src/services/emprestimo-service";
+import { Emprestimo } from "../src/models/Emprestimo";
 
 const service = new EmprestimoService();
 const controller = new EmprestimoController(service);

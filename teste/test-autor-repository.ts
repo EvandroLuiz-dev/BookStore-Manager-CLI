@@ -1,5 +1,5 @@
-import { AutorRepository } from "./AutorRepository";
-import { Autor } from "../models/Autor";
+import { AutorRepository } from "./autor-repository";
+import { Autor } from "../src/models/Autor";
 
 const autorRepository = new AutorRepository();
 

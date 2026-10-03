@@ -1,5 +1,5 @@
 import { ClienteService } from "./cliente-service";
-import { ClienteRepository } from "../repositories/cliente-repository";
+import { ClienteRepository } from "../src/repositories/cliente-repository";
 
 const repository = new ClienteRepository();
 const service = new ClienteService(repository);

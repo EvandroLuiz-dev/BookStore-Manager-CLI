@@ -4,7 +4,7 @@ import { Autor } from '../models/Autor';
 export class AutorRepository {
     async findAll(): Promise<Autor[]> {
         const result = await pool.query('SELECT * FROM autores');
-        return result.rows.map(row => new Autor( row.nome, row.pais, row.id));
+        return result.rows.map(row => new Autor(row.nome, row.pais, row.id));
     }
 
     async create(autor: Autor): Promise<void> {

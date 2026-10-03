@@ -22,7 +22,7 @@ CREATE TABLE clientes (
 
 CREATE TABLE emprestimos (
     id SERIAL PRIMARY KEY,
-    cliente_id INTEGER NOT NULL REFERENCES cLientes(id),
+    cliente_id INTEGER NOT NULL REFERENCES clientes(id),
     livro_id INTEGER NOT NULL REFERENCES livros(id),
     data_emprestimo DATE NOT NULL,
     data_devolucao DATE NULL

@@ -62,6 +62,7 @@ async quantidadeEmprestimosPorLivro(): Promise<QuantidadeEmprestimosPorLivro[]> 
             ON emprestimos.livro_id = livros.id
         GROUP BY livros.id, livros.titulo
         ORDER BY total_emprestimos DESC
+        LIMIT 10
     `);
 
     return result.rows;

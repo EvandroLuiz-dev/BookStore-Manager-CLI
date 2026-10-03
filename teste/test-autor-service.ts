@@ -1,4 +1,4 @@
-import { AutorRepository } from "../repositories/AutorRepository";
+import { AutorRepository } from "../src/repositories/autor-repository";
 import { AutorService } from "./autor-service";
 
 const autorRepository = new AutorRepository();

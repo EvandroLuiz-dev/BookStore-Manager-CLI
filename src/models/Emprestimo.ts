@@ -1,5 +1,3 @@
-import { get } from "node:http"
-
 export class Emprestimo {
     private _id: number | undefined
     private _cliente_id: number

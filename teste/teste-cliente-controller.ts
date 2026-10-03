@@ -1,6 +1,6 @@
 import { ClienteController } from "./cliente-controller";
-import { ClienteService } from "../services/cliente-service";
-import { ClienteRepository } from "../repositories/cliente-repository";
+import { ClienteService } from "../src/services/cliente-service";
+import { ClienteRepository } from "../src/repositories/cliente-repository";
 
 const repository = new ClienteRepository();
 const service = new ClienteService(repository);

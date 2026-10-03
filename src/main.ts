@@ -1,5 +1,5 @@
 // REPOSITORIES
-import { AutorRepository } from "./repositories/AutorRepository";
+import { AutorRepository } from "./repositories/autor-repository";
 import { LivroRepository } from "./repositories/livro-repository";
 import { ClienteRepository } from "./repositories/cliente-repository";
 
@@ -8,7 +8,6 @@ import { AutorService } from "./services/autor-service";
 import { LivroService } from "./services/livro-service";
 import { ClienteService } from "./services/cliente-service";
 import { EmprestimoService } from "./services/emprestimo-service";
-import { RelatorioService } from "./services/relatorios-service";
 
 // CONTROLLERS
 import { AutorController } from "./controllers/autor-controller";

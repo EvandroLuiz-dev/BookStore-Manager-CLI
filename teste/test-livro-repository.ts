@@ -1,5 +1,5 @@
 import { LivroRepository } from "./livro-repository";
-import { Livro } from "../models/Livros";
+import { Livro } from "../src/models/Livros";
 
 const livroRepositoryInstance = new LivroRepository();
 async function testFindAll() {

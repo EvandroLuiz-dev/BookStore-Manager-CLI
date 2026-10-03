@@ -1,4 +1,4 @@
-import { AutorRepository } from "../repositories/AutorRepository";
+import { AutorRepository } from "../repositories/autor-repository";
 import { Autor } from "../models/Autor";
 
 

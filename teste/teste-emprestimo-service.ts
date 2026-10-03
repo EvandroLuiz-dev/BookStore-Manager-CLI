@@ -1,5 +1,5 @@
 import { EmprestimoService } from "./emprestimo-service";
-import { Emprestimo } from "../models/Emprestimo";
+import { Emprestimo } from "../src/models/Emprestimo";
 
 const service = new EmprestimoService();
 
